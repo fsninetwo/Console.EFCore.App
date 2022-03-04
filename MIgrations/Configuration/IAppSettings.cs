@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Migrations.Configuration
 {
-    interface IAppSettings
+    public interface IAppSettings
     {
         string ConnectionString { get; set; }
     }

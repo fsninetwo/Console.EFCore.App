@@ -18,15 +18,14 @@ namespace Migrations
     {
         public EfCoreContext CreateDbContext(string[] args)
         {
-            var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONEMNT");
 
+            //var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONEMNT");
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true)
                 .AddJsonFile("appsettings.local.json", optional: true);
 
             IConfigurationRoot configuration = builder.Build();
-
             var settings = new AppSettings();
             configuration.Bind(settings);
 
@@ -35,6 +34,7 @@ namespace Migrations
                 b => b.MigrationsAssembly(typeof(EfCoreContext).Assembly.FullName)
             );
 
+            Console.WriteLine("Migration is started");
             return new EfCoreContext(optionsBuilder.Options);
         }
     }

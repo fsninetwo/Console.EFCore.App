@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Entities.Entities;
+using EfCore.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Migrations
+namespace EfCore.Migrations
 {
     public class EfCoreContext : DbContext
     {
+        public EfCoreContext(DbContextOptions<EfCoreContext> options) : base(options)
+        {
+
+        }
+
         public DbSet<Currency> Currencies;
 
         public DbSet<Order> Orders;
@@ -21,10 +26,6 @@ namespace Migrations
         public DbSet<Rating> Ratings;
 
         public DbSet<User> Users;
-
-        public EfCoreContext(DbContextOptions<EfCoreContext> options) : base(options)
-        {
-
-        }
+      
     }
 }

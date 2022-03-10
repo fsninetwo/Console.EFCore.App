@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\EfCore.Entities.csproj" />
+    <ProjectReference Include="..\MIgrations\EfCore.Migrations.csproj" />
+  </ItemGroup>
+
+</Project>

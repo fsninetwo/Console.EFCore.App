@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
-using Migrations;
-using Migrations.Configuration;
+using EfCore.Migrations;
+using EfCore.Migrations.Configuration;
 
 namespace Migrations
 {

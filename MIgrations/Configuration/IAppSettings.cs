@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Migrations.Configuration
+namespace EfCore.Migrations.Configuration
 {
     public interface IAppSettings
     {

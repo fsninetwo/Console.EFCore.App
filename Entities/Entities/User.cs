@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entities.Entities
+namespace EfCore.Entities.Entities
 {
     public class User
     {

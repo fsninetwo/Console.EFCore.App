@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console.EFCore.App", "Console.EFCore.App\Console.EFCore.App.csproj", "{A5C42550-3CAB-43D5-9A9C-A25B95767F6C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{28F47EF9-C8BC-43F3-AAC5-D377FBA029A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore.Entities", "Entities\EfCore.Entities.csproj", "{28F47EF9-C8BC-43F3-AAC5-D377FBA029A5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{5E990C65-86D0-4FA8-A754-7199EC8C43A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore.Repositories", "Repositories\EfCore.Repositories.csproj", "{5E990C65-86D0-4FA8-A754-7199EC8C43A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{D10A9C99-B92F-4660-9CEE-1F1D15DDAB8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore.Services", "Services\EfCore.Services.csproj", "{D10A9C99-B92F-4660-9CEE-1F1D15DDAB8D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migrations", "MIgrations\Migrations.csproj", "{A536D990-C54A-4A3E-8405-4F050A88FEAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore.Migrations", "MIgrations\EfCore.Migrations.csproj", "{A536D990-C54A-4A3E-8405-4F050A88FEAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

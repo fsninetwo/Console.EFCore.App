@@ -32,7 +32,7 @@ namespace EfCore.Repositories.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<User> GetUserAsync(long id, bool asNoTracking = false)
+        public async Task<User> GetUserAsync(long id, bool asNoTracking = true)
         {
             var user = await _userDbSet
                 .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll)

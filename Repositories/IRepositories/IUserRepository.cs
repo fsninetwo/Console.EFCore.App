@@ -11,12 +11,12 @@ namespace EfCore.Repositories.IRepositories
     {
         Task AddUser(User user);
 
-        Task UpdateUser(long id, User user);
+        Task UpdateUser(User user);
 
         Task<User> GetUserAsync(long id, bool asNoTracking = false);
 
         Task<User> GetUserByCredentialsAsync(string login, string password, bool asNoTracking = true);
 
-        Task DeleteUser(long id);
+        Task DeleteUser(User user);
     }
 }

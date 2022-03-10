@@ -27,7 +27,7 @@ namespace EfCore.Repositories.Repositories
         }
 
 
-        public Task DeleteUser(long id)
+        public Task DeleteUser(User user)
         {
             throw new NotImplementedException();
         }
@@ -48,7 +48,7 @@ namespace EfCore.Repositories.Repositories
             return user;
         }
 
-        public Task UpdateUser(long id, User user)
+        public Task UpdateUser(User user)
         {
             throw new NotImplementedException();
         }

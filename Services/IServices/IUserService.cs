@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EfCore.Repositories.Models;
 
 namespace EfCore.Services.IServices
 {
     public interface IUserService
     {
-        Task<User> GetUserAsync(long id);
+        Task<UserModel> GetUserAsync(long id);
 
-        Task<User> GetUserByCredentialsAsync(string login, string password);
+        Task<UserCredentialsModel> GetUserByCredentialsAsync(string login, string password);
     }
 }

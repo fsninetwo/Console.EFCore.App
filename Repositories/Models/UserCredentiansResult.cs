@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EfCore.Repositories.Models
+namespace EfCore.Data.Models
 {
-    public class UserCredentialsModel
+    public class UserCredentialsResult
     {
         public string Login { get; set; }
 

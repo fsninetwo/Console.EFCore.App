@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EfCore.Domain.Exceptions;
 using EfCore.Entities.Entities;
-using EfCore.Repositories.IRepositories;
+using EfCore.Data.IRepositories;
 using EfCore.Services.IServices;
 
 namespace EfCore.Services.Services

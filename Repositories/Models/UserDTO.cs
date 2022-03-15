@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EfCore.Repositories.Models
+namespace EfCore.Data.Models
 {
-    public class UserModel
+    public class UserDTO
     {
         public long Id { get; set; }
 

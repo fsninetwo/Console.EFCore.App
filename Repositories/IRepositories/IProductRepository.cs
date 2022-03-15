@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EfCore.Repositories.IRepositories
+namespace EfCore.Data.IRepositories
 {
     public interface IProductRepository
     {
@@ -19,4 +19,6 @@ namespace EfCore.Repositories.IRepositories
 
         Task DeleteProduct(long productId);
     }
+}
+  }
 }

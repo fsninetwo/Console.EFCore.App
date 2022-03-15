@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EfCore.Entities.Entities
+namespace EfCore.Data.Models
 {
-    public class Rating
+    public class RatingDTO
     {
         public long Id { get; set; }
 
@@ -18,8 +18,6 @@ namespace EfCore.Entities.Entities
 
         public DateTime Updated { get; set; }
 
-        public long UserId { get; set; }
-
-        public long ProductId { get; set; }
+        public string UserName { get; set; }
     }
 }

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EfCore.Data.IRepositories;
 using EfCore.Entities.Entities;
 using EfCore.Migrations;
-using EfCore.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace EfCore.Repositories.Repositories
+namespace EfCore.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EfCore.Data.IRepositories;
 using EfCore.Entities.Entities;
 using EfCore.Migrations;
-using EfCore.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace EfCore.Repositories.Repositories
+namespace EfCore.Data.Repositories
 {
     public class ProductRepository : IProductRepository
     {
@@ -46,28 +46,28 @@ namespace EfCore.Repositories.Repositories
 
         public async Task<Product> GetProductAsync(long productId, bool asNoTracking = true)
         {
-            var user = await GetProduct(productId, asNoTracking).FirstOrDefaultAsync();
+            var product = await GetProduct(productId, asNoTracking).FirstOrDefaultAsync();
 
-            return user;
+            return product;
         }
 
         public async Task<List<Product>> GetProductsAsync(string searchText, bool asNoTracking = true)
         {
-            var user = await GetProducts(searchText, asNoTracking).ToListAsync();
+            var product = await GetProducts(searchText, asNoTracking).ToListAsync();
 
-            return user;
+            return product;
         }
 
         public async Task UpdateProduct(Product updatedProduct)
         {
-            var user = await GetProductAsync(updatedProduct.Id);
+            var product = await GetProductAsync(updatedProduct.Id);
 
-            if (user is null)
+            if (product is null)
             {
                 return;
             }
 
-            _productDbSet.Update(user);
+            _productDbSet.Update(product);
 
             await _dbContext.SaveChangesAsync();
         }

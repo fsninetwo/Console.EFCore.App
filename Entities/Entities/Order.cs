@@ -17,8 +17,6 @@ namespace EfCore.Entities.Entities
 
         public string Guid { get; set; }
 
-        public decimal Price { get; set; }
-
         public bool IsCompleted { get; set; }
 
         public virtual List<OrderDetails> OrderDetails { get; set; }

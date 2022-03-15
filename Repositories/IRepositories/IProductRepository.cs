@@ -20,5 +20,3 @@ namespace EfCore.Data.IRepositories
         Task DeleteProduct(long productId);
     }
 }
-  }
-}

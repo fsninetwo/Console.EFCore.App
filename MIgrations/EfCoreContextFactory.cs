@@ -18,8 +18,6 @@ namespace Migrations
     {
         public EfCoreContext CreateDbContext(string[] args)
         {
-
-            //var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONEMNT");
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true)

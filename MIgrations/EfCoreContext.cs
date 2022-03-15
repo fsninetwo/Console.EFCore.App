@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using EfCore.Entities.Entities;
@@ -15,17 +16,20 @@ namespace EfCore.Migrations
 
         }
 
-        public DbSet<Currency> Currencies;
+        public DbSet<Order> Orders { get; set; }
 
-        public DbSet<Order> Orders;
+        public DbSet<OrderDetails> OrderDetails { get; set; }
 
-        public DbSet<OrderDetails> OrderDetails;
+        public DbSet<Product> Products { get; set; }
 
-        public DbSet<Product> Products;
+        public DbSet<Rating> Ratings { get; set; }
 
-        public DbSet<Rating> Ratings;
+        public DbSet<User> Users { get; set; }
 
-        public DbSet<User> Users;
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
       
     }
 }

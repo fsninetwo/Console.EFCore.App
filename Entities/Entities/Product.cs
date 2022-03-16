@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,11 @@ namespace EfCore.Entities.Entities
 
         public string Developer { get; set; }
 
+        public decimal Price { get; set; }
+
         public virtual List<Rating> Ratings { get; set; }
 
         public virtual List<OrderDetails> OrderDetailses { get; set; }
+
     }
 }

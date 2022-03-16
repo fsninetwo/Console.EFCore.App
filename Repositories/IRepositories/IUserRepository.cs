@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EfCore.Repositories.IRepositories
+namespace EfCore.Data.IRepositories
 {
     public interface IUserRepository
     {
-        Task AddUser(User user);
+        Task AddUser(User newUser);
 
-        Task UpdateUser(long id, User user);
+        Task UpdateUser(User updatedUser);
 
-        Task<User> GetUserAsync(long id, bool asNoTracking = false);
+        Task<User> GetUserAsync(long userId, bool asNoTracking = true);
 
         Task<User> GetUserByCredentialsAsync(string login, string password, bool asNoTracking = true);
 
-        Task DeleteUser(long id);
+        Task DeleteUser(long userId);
     }
 }

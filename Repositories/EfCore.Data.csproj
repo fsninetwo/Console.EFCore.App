@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EfCore.Domain\EfCore.Domain.csproj" />
     <ProjectReference Include="..\Entities\EfCore.Entities.csproj" />
     <ProjectReference Include="..\MIgrations\EfCore.Migrations.csproj" />
   </ItemGroup>

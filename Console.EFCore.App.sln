@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore.Services", "Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore.Migrations", "MIgrations\EfCore.Migrations.csproj", "{A536D990-C54A-4A3E-8405-4F050A88FEAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfCore.Domain", "EfCore.Domain\EfCore.Domain.csproj", "{21367A60-07B1-46B6-9C56-8A454BD0ADFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A536D990-C54A-4A3E-8405-4F050A88FEAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A536D990-C54A-4A3E-8405-4F050A88FEAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A536D990-C54A-4A3E-8405-4F050A88FEAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21367A60-07B1-46B6-9C56-8A454BD0ADFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21367A60-07B1-46B6-9C56-8A454BD0ADFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21367A60-07B1-46B6-9C56-8A454BD0ADFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21367A60-07B1-46B6-9C56-8A454BD0ADFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

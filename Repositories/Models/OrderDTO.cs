@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EfCore.Entities.Entities;
 
-namespace EfCore.Entities.Entities
+namespace EfCore.Data.Models
 {
-    public class Order
+    public class OrderDTO
     {
         public long Id { get; set; }
 
@@ -21,6 +21,6 @@ namespace EfCore.Entities.Entities
 
         public long UserId { get; set; }
 
-        public virtual List<OrderDetails> OrderDetails { get; set; }
+        public virtual List<OrderDetailsDTO> OrderDetails { get; set; }
     }
 }

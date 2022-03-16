@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EfCore.Data.Models;
 
 namespace EfCore.Services.IServices
 {
-    public interface IUserService
+    public interface IProductService
     {
-        Task<UserDTO> GetUserAsync(long id);
+        Task<Product> GetProductAsync(long id);
 
-        Task<UserCredentialsResult> GetUserByCredentialsAsync(string login, string password);
+        Task<List<Product>> GetProductsAsync(string searchText);
     }
 }

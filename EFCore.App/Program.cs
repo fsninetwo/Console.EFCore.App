@@ -16,16 +16,21 @@ namespace EFCore.App
     {
         static void Main(string[] args)
         {
+            var services = BuildServices();
+
+        }
+
+        static IServiceCollection BuildServices()
+        {
             var appSettings = AppSettingsConfiguration.GetAppSettings(Directory.GetCurrentDirectory());
 
             var services = new ServiceCollection();
-
             services.AddDbContext<EfCoreContext>
                 (options => options.UseSqlServer(appSettings.ConnectionString));
-
             services.AddDependencyInjectionService();
-
             services.BuildServiceProvider();
+
+            return services;
         }
     }
 }

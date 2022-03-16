@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using EfCore.Domain.Exceptions;
-using EfCore.Data.Entities;
+using EfCore.Entities.Entities;
 using EfCore.Data.IRepositories;
 using EfCore.Data.Models;
+using EfCore.Services.Helpers;
 using EfCore.Services.IServices;
 
 namespace EfCore.Services.Services
@@ -21,6 +22,13 @@ namespace EfCore.Services.Services
         {
             _userRepository = userRepository;
             _mapper = mapper;
+        }
+
+        public Task AddUserAsync(UserCreateDTO newUser)
+        {
+            var mapUser = UserHelper.MapUserDTOtoUser(newUser);
+
+            _userRepository.AddUser(mapUser);
         }
 
         public async Task<UserDTO> GetUserAsync(long id)

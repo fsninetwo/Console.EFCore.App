@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EfCore.Data.IRepositories;
+using EfCore.Domain.Exceptions;
 using EfCore.Entities.Entities;
 using EfCore.Migrations;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,12 @@ namespace EfCore.Data.Repositories
     public class OrderRepository : IOrderRepository
     {
         private readonly EfCoreContext _dbContext;
-        private readonly DbSet<Order> _OrderDbSet;
+        private readonly DbSet<Order> _orderDbSet;
 
         public OrderRepository(EfCoreContext dbContext)
         {
             _dbContext = dbContext;
-            _OrderDbSet = dbContext.Set<Order>();
+            _orderDbSet = dbContext.Set<Order>();
         }
 
         public async Task AddOrderAsync(Order newOrder)
@@ -27,10 +28,10 @@ namespace EfCore.Data.Repositories
 
             if (!(order is null))
             {
-                throw InternalBufferOverflowException()
+                throw new InternalException("Order is already exist");
             }
 
-            _OrderDbSet.Add(order);
+            _orderDbSet.Add(order);
 
             await _dbContext.SaveChangesAsync();
         }
@@ -39,7 +40,7 @@ namespace EfCore.Data.Repositories
         {
             var order = await GetOrderAsync(orderId);
 
-            _OrderDbSet.Remove(order);
+            _orderDbSet.Remove(order);
 
             await _dbContext.SaveChangesAsync();
         }
@@ -64,17 +65,17 @@ namespace EfCore.Data.Repositories
 
             if (order is null)
             {
-                return;
+                throw new InternalException("Order doesn't exist");
             }
 
-            _OrderDbSet.Update(order);
+            _orderDbSet.Update(order);
 
             await _dbContext.SaveChangesAsync();
         }
 
         private IQueryable<Order> GetOrder(long orderId, bool asNoTracking = false)
         {
-            var order = _OrderDbSet
+            var order = _orderDbSet
                 .Where(x => x.Id == orderId)
                 .Include(x => x.OrderDetails)
                 .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);   
@@ -84,7 +85,7 @@ namespace EfCore.Data.Repositories
 
         private IQueryable<Order> GetOrders(long userId, bool asNoTracking = false)
         {
-            var order = _OrderDbSet
+            var order = _orderDbSet
                 .Where(x => x.UserId == userId)
                 .Include(x => x.OrderDetails)
                 .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);   

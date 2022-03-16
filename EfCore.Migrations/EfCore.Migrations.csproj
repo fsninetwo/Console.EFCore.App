@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>Migrations</AssemblyName>
-    <RootNamespace>Migrations</RootNamespace>
+    <AssemblyName>EfCore.Migrations</AssemblyName>
+    <RootNamespace>EfCore.Migrations</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EfCore.Data\EfCore.Data.csproj" />
     <ProjectReference Include="..\EfCore.Domain\EfCore.Domain.csproj" />
-    <ProjectReference Include="..\Repositories\EfCore.Data.csproj" />
   </ItemGroup>
 
 </Project>

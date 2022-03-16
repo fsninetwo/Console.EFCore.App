@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using EfCore.Domain.Exceptions;
-using EfCore.Entities.Entities;
+using EfCore.Data.Entities;
 using EfCore.Data.IRepositories;
 using EfCore.Data.Models;
 using EfCore.Services.IServices;

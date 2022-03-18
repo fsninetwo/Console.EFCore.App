@@ -72,7 +72,7 @@ namespace EfCore.Data.Repositories
                                      Rate = rating.Rate,
                                      Created = rating.Created,
                                      Updated = rating.Updated,
-                                     UserName = user != null ? "Deleted" : user.Login
+                                     UserName = user == null ? "Deleted" : user.Login
                                  }).ToListAsync();
 
             return ratings;

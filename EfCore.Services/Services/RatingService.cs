@@ -28,7 +28,9 @@ namespace EfCore.Services.Services
 
         public async Task AddRatingAsync(RatingCreateDTO rating)
         {
-            var newRating = RatingHelper.ConvertRatingDTOtoRating(rating);
+            var user = await _userService.GetUserAsync(1);
+
+            var newRating = RatingHelper.ConvertRatingDTOtoRating(rating, user.Id);
 
             try
             {

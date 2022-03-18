@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EfCore.Entities.Entities
+namespace EfCore.Data.Models
 {
-    public class Product
+    public class ProductDTO
     {
         public long Id { get; set; }
 
@@ -17,9 +17,6 @@ namespace EfCore.Entities.Entities
 
         public string Developer { get; set; }
 
-        public virtual List<Rating> Ratings { get; set; }
-
-        public virtual List<OrderDetails> OrderDetails { get; set; }
-
+        public List<RatingDTO> Ratings { get; set; }
     }
 }

@@ -61,7 +61,7 @@ namespace EfCore.Data.Repositories
         public async Task<List<RatingDTO>> GetRatingsAsync(long productId, bool asNoTracking = true)
         {
             var ratings = await (from rating in _ratingDbSet
-                                 join product in _dbContext.Set<Product>() on rating.ProductId equals product.Id
+                                 join product in _dbContext.Set<ProductDTO>() on rating.ProductId equals product.Id
                                  join users in _dbContext.Set<User>() on rating.UserId equals users.Id into Users
                                  from user in Users.DefaultIfEmpty()
                                  where product.Id == productId

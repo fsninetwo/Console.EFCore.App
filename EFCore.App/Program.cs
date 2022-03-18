@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using AutoMapper;
 using EfCore.Data.IRepositories;
 using EfCore.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using EfCore.Migrations.Configuration;
 using EfCore.Services.IServices;
 using EfCore.Services.Services;
 using EFCore.App.Extensions;
+using EFCore.App.Mappers;
 
 namespace EFCore.App
 {
@@ -16,17 +18,24 @@ namespace EFCore.App
     {
         static void Main(string[] args)
         {
-            var services = BuildServices();
+            var services = ConfigureServices();
 
         }
 
-        static IServiceCollection BuildServices()
+        static IServiceCollection ConfigureServices()
         {
             var appSettings = AppSettingsConfiguration.GetAppSettings(Directory.GetCurrentDirectory());
 
             var services = new ServiceCollection();
+
+            var autoMapper = new MapperConfiguration(mc => { mc.AddProfile(new AutoMappers()); });
+
+            IMapper mapper = autoMapper.CreateMapper();
+
+            services.AddSingleton(mapper);
             services.AddDbContext<EfCoreContext>
                 (options => options.UseSqlServer(appSettings.ConnectionString));
+            services.AddLogging();
             services.AddDependencyInjectionService();
             services.BuildServiceProvider();
 

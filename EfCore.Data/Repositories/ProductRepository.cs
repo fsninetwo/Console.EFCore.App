@@ -36,6 +36,13 @@ namespace EfCore.Data.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<List<Product>> GetProductsAsync(List<long> orderDetailIds, bool asNoTracking = true)
+        {
+            var products = await GetProducts(orderDetailIds, asNoTracking).ToListAsync();
+
+            return products;
+        }
+
         public async Task DeleteProduct(long productId)
         {
             var product = await GetProductAsync(productId);
@@ -52,9 +59,9 @@ namespace EfCore.Data.Repositories
 
         public async Task<Product> GetProductAsync(long productId, bool asNoTracking = true)
         {
-            var product = await GetProduct(productId, asNoTracking).FirstOrDefaultAsync();
+            var products = await GetProduct(productId, asNoTracking).FirstOrDefaultAsync();
 
-            return product;
+            return products;
         }
 
         public async Task<List<Product>> GetProductsAsync(string searchText, bool asNoTracking = true)
@@ -89,11 +96,20 @@ namespace EfCore.Data.Repositories
 
         private IQueryable<Product> GetProducts(string searchText, bool asNoTracking = false)
         {
-            var product = _productDbSet
+            var products = _productDbSet
                 .Where(x => x.Name.Contains(searchText))
                 .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);   
 
-            return product;
+            return products;
+        }
+
+        private IQueryable<Product> GetProducts(List<long> orderDetailIds, bool asNoTracking = false)
+        {
+            var products = _productDbSet
+                .Where(x => orderDetailIds.Contains(x.Id))
+                .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);   
+
+            return products;
         }
     }
 }

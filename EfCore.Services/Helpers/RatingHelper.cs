@@ -10,7 +10,7 @@ namespace EfCore.Services.Helpers
 {
     public static class RatingHelper
     {
-        public static Rating ConvertRatingDTOtoRating(RatingCreateDTO rating)
+        public static Rating ConvertRatingDTOtoRating(RatingCreateDTO rating, long userId)
         {
             var created = DateTime.Now;
 
@@ -20,6 +20,7 @@ namespace EfCore.Services.Helpers
                 Message = rating.Message,
                 Created = created,
                 Updated = created,
+                UserId = userId,
                 ProductId = rating.ProductId
             };
 

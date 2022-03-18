@@ -19,15 +19,19 @@ namespace EfCore.Services.Services
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepository, IUserService userService)
+        public OrderService(IOrderRepository orderRepository, IUserService userService, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _userService = userService;
+            _mapper = mapper;
         }
 
         public async Task AddOrderAsync(OrderCreateDTO order)
         {
-            var newOrder = OrderHelper.ConvertOrderDTOtoRating(order);
+            var user = await _userService.GetUserAsync(1);
+
+            var newOrder = OrderHelper.ConvertOrderDTOtoRating(order, user.Id);
+
             try
             {
                 await _orderRepository.AddOrderAsync(newOrder);
@@ -56,6 +60,7 @@ namespace EfCore.Services.Services
             foreach(var order in orders)
             {
                 var orderModel = _mapper.Map<OrderDTO>(order);
+
                 orderList.Add(orderModel);
             }
 

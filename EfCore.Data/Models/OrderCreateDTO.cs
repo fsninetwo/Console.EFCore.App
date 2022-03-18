@@ -13,6 +13,6 @@ namespace EfCore.Data.Models
 
         public string Payment { get; set; }
 
-        public virtual List<OrderDetailsCreateDTO> OrderDetails { get; set; }
+        public List<OrderDetailsCreateDTO> OrderDetails { get; set; }
     }
 }

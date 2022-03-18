@@ -17,12 +17,14 @@ namespace EfCore.Services.Services
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IUserService _userService;
+        private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepository, IUserService userService, IMapper mapper)
+        public OrderService(IOrderRepository orderRepository, IUserService userService, IProductService productService, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _userService = userService;
+            _productService = productService;
             _mapper = mapper;
         }
 
@@ -46,7 +48,23 @@ namespace EfCore.Services.Services
         {
             var order = await _orderRepository.GetOrderAsync(orderId);
 
+            var orderDetailsIds = order.OrderDetails.Select(x => x.Id).ToList();
+
             var orderModel = _mapper.Map<OrderDTO>(order);
+
+            var products = await _productService.GetProductsAsync(orderDetailsIds);
+
+            if (products is null)
+            {
+                throw new InternalException("No existing products for this entity");
+            }
+
+            foreach (var orderDetails in orderModel.OrderDetails)
+            {
+                var product = products.FirstOrDefault(x => x.Id == orderDetails.Id);
+
+                orderDetails.Product = product.Name;
+            }
 
             return orderModel;
         }
@@ -57,9 +75,25 @@ namespace EfCore.Services.Services
 
             var orderList = new List<OrderDTO>();
 
+            var orderDetailsIds = orders.SelectMany(x => x.OrderDetails.Select(xl => xl.Id)).ToList();
+
+            var products = await _productService.GetProductsAsync(orderDetailsIds);
+
+            if (products is null)
+            {
+                throw new InternalException("No existing products for this entity");
+            }
+
             foreach(var order in orders)
             {
                 var orderModel = _mapper.Map<OrderDTO>(order);
+
+                foreach (var orderDetails in orderModel.OrderDetails)
+                {
+                    var product = products.FirstOrDefault(x => x.Id == orderDetails.Id);
+
+                    orderDetails.Product = product.Name;
+                }
 
                 orderList.Add(orderModel);
             }

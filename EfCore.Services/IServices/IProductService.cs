@@ -13,5 +13,7 @@ namespace EfCore.Services.IServices
         Task<ProductDTO> GetProductAsync(long id);
 
         Task<List<ProductDTO>> GetProductsAsync(string searchText);
+
+        Task<List<ProductDTO>> GetProductsAsync(List<long> orderDetailsIds);
     }
 }

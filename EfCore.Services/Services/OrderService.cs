@@ -20,7 +20,7 @@ namespace EfCore.Services.Services
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepository, IUserService userService, IProductService productService, IMapper mapper)
+        public OrderService(IMapper mapper, IOrderRepository orderRepository, IUserService userService, IProductService productService)
         {
             _orderRepository = orderRepository;
             _userService = userService;

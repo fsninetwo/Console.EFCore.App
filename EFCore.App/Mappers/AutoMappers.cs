@@ -35,7 +35,7 @@ namespace EFCore.App.Mappers
                             Created = x.Created,
                             Updated = x.Updated
                         })
-                ));
+                    ));
         }
     }
 }

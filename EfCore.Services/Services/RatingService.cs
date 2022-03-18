@@ -9,6 +9,7 @@ using EfCore.Data.IRepositories;
 using EfCore.Services.IServices;
 using EfCore.Data.Models;
 using AutoMapper;
+using EfCore.Services.Helpers;
 
 namespace EfCore.Services.Services
 {
@@ -18,18 +19,29 @@ namespace EfCore.Services.Services
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public RatingService(IRatingRepository ratingRepository, IUserService userService)
+        public RatingService(IRatingRepository ratingRepository, IUserService userService, IMapper mapper)
         {
             _ratingRepository = ratingRepository;
             _userService = userService;
+            _mapper = mapper;
         }
 
-        public async Task AddRatingAsync(Rating rating)
+        public async Task AddRatingAsync(RatingCreateDTO rating)
         {
-            await _ratingRepository.AddRatingAsync(rating);
+            var newRating = RatingHelper.ConvertRatingCreateDTOtoRating(rating);
+
+            try
+            {
+                await _ratingRepository.AddRatingAsync(newRating);
+            }
+            catch (InternalException ex)
+            {
+                Console.WriteLine("Error, ", ex.Message);
+            }
+            
         }
 
-        public async Task<Rating> GetRatingAsync(long ratingId)
+        public async Task<RatingDTO> GetRatingAsync(long ratingId)
         {
             var rating = await _ratingRepository.GetRatingAsync(ratingId);
 
@@ -39,7 +51,7 @@ namespace EfCore.Services.Services
 
             ratingModel.UserName = user.Login;
 
-            return rating;
+            return ratingModel;
         }
 
         public async Task<List<RatingDTO>> GetRatingsAsync(long productId)
@@ -49,9 +61,18 @@ namespace EfCore.Services.Services
             return ratings;
         }
 
-        public async Task UpdateRatingAsync(Rating rating)
+        public async Task UpdateRatingAsync(RatingUpdateDTO rating)
         {
-            await _ratingRepository.UpdateRatingAsync(rating);
+            var updateRating = RatingHelper.ConvertRatingCreateDTOtoRating(rating);
+
+            try
+            {
+                await _ratingRepository.UpdateRatingAsync(updateRating);
+            }
+            catch (InternalException ex)
+            {
+                Console.WriteLine("Error, ", ex.Message);
+            }
         }
     }
 }

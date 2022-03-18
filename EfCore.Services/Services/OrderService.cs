@@ -75,7 +75,7 @@ namespace EfCore.Services.Services
 
             var orderList = new List<OrderDTO>();
 
-            var orderDetailsIds = orders.SelectMany(x => x.OrderDetails.Select(xl => xl.Id)).ToList();
+            var orderDetailsIds = orders.SelectMany(x => x.OrderDetails.Select(xl => xl.Id)).Distinct().ToList();
 
             var products = await _productService.GetProductsAsync(orderDetailsIds);
 

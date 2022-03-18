@@ -8,6 +8,7 @@ using Xunit;
 using EFCore.App.Mappers;
 using EfCore.Data.IRepositories;
 using EfCore.Data.Models;
+using EfCore.Domain.Exceptions;
 using EfCore.Services.Services;
 using EfCore.Entities.Entities;
 
@@ -123,13 +124,25 @@ namespace EfCore.Services.Tests
 
         #endregion
 
+        [Fact]
+        public async Task GetOrdersAsync_NoProjects_ShouldThrowException()
+        {
+            _mockOrderRepository.Setup(x => x.GetOrdersAsync(1, It.IsAny<bool>()))
+                .ReturnsAsync(() => validOrders);
+
+            _mockProductService.Setup(x => x.GetProductsAsync(It.IsAny<List<long>>()))
+                .ReturnsAsync(() => null);
+
+            await Assert.ThrowsAsync<InternalException>(() => 
+                _orderService.GetOrdersAsync(1));
+        }
 
         [Fact]
         public async Task GetOrdersAsync_ShouldReturnValidOrders()
         {
             var userId = 1;
 
-            _mockOrderRepository.Setup(x => x.GetOrdersAsync(1, It.IsAny<bool>()))
+            _mockOrderRepository.Setup(x => x.GetOrdersAsync(userId, It.IsAny<bool>()))
                 .ReturnsAsync(() => validOrders);
 
             _mockProductService.Setup(x => x.GetProductsAsync(validOrderDetailIds))
@@ -141,9 +154,13 @@ namespace EfCore.Services.Tests
             {
                 Assert.Equal(result[i].Id, validOrdersDTO[i].Id);
                 Assert.Equal(result[i].UserId, validOrdersDTO[i].UserId);
-                Assert.Equal(result[i].OrderDetails, validOrdersDTO[i].OrderDetails);
+                Assert.Equal(result[i].OrderDetails.Count, validOrdersDTO[i].OrderDetails.Count);
+                for (int j = 0; j < result[i].OrderDetails.Count; j++)
+                {
+                    Assert.Equal(result[i].OrderDetails[j].Id, validOrdersDTO[i].OrderDetails[j].Id);
+                    Assert.Equal(result[i].OrderDetails[j].Product, validOrdersDTO[i].OrderDetails[j].Product);
+                }
             }
-
         }
     }
 }

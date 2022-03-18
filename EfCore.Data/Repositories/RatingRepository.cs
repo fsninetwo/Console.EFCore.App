@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EfCore.Data.IRepositories;
 using EfCore.Data.Models;
+using EfCore.Domain.Exceptions;
 using EfCore.Entities.Entities;
 using EfCore.Migrations;
 using Microsoft.EntityFrameworkCore;
@@ -28,16 +29,7 @@ namespace EfCore.Data.Repositories
 
             if (!(rating is null))
             {
-                return;
-            }
-
-            if (rating.Created == default(DateTime))
-            {
-                rating.Created = DateTime.Now;    
-            }
-            if (rating.Updated == default(DateTime))
-            {
-                rating.Updated = rating.Created;    
+                throw new InternalException("Rating is already exists");
             }
 
             _ratingDbSet.Add(rating);
@@ -45,9 +37,14 @@ namespace EfCore.Data.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteRating(long rateId)
+        public async Task DeleteRatingAsync(long rateId)
         {
             var rating = await GetRatingAsync(rateId);
+
+            if (!(rating is null))
+            {
+                throw new InternalException("Rating is not found");
+            }
 
             _ratingDbSet.Remove(rating);
 
@@ -88,7 +85,7 @@ namespace EfCore.Data.Repositories
 
             if (rating is null)
             {
-                return;
+                throw new InternalException("Rating is not found");
             }
 
             rating.Updated = DateTime.Now; 

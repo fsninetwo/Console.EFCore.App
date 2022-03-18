@@ -28,7 +28,7 @@ namespace EfCore.Data.Repositories
 
             if (!(order is null))
             {
-                throw new InternalException("Order is already exist");
+                throw new InternalException("Order is already exists");
             }
 
             _orderDbSet.Add(order);
@@ -39,6 +39,11 @@ namespace EfCore.Data.Repositories
         public async Task DeleteOrderAsync(long orderId)
         {
             var order = await GetOrderAsync(orderId);
+
+            if (!(order is null))
+            {
+                throw new InternalException("Order is not found");
+            }
 
             _orderDbSet.Remove(order);
 
@@ -65,7 +70,7 @@ namespace EfCore.Data.Repositories
 
             if (order is null)
             {
-                throw new InternalException("Order doesn't exist");
+                throw new InternalException("Order is not found");
             }
 
             _orderDbSet.Update(order);

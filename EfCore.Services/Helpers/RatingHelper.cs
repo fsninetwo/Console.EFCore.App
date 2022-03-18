@@ -8,9 +8,9 @@ using EfCore.Entities.Entities;
 
 namespace EfCore.Services.Helpers
 {
-    class RatingHelper
+    public static class RatingHelper
     {
-        public static Rating ConvertRatingCreateDTOtoRating(RatingCreateDTO rating)
+        public static Rating ConvertRatingDTOtoRating(RatingCreateDTO rating)
         {
             var created = DateTime.Now;
 
@@ -26,7 +26,7 @@ namespace EfCore.Services.Helpers
             return newRating;
         }
 
-        public static Rating ConvertRatingCreateDTOtoRating(RatingUpdateDTO rating)
+        public static Rating ConvertRatingDTOtoRating(RatingUpdateDTO rating)
         {
             var updated = DateTime.Now;
 

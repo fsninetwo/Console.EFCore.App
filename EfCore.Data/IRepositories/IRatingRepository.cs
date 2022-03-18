@@ -18,6 +18,6 @@ namespace EfCore.Data.IRepositories
 
         Task<List<RatingDTO>> GetRatingsAsync(long productId, bool asNoTracking = true);
 
-        Task DeleteRating(long rateId);
+        Task DeleteRatingAsync(long rateId);
     }
 }

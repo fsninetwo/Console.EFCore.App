@@ -10,14 +10,12 @@ namespace EfCore.Services.IServices
 {
     public interface IOrderService
     {
-        Task AddOrderAsync(Order newOrder);
+        Task AddOrderAsync(OrderCreateDTO newOrder);
 
-        Task UpdateOrderAsync(Order newOrder);
+        Task UpdateOrderAsync(OrderUpdateDTO newOrder);
 
         Task<OrderDTO> GetOrderAsync(long id);
 
         Task<List<OrderDTO>> GetOrdersAsync(long userId);
-
-        Task DeleteOrderAsync(long orderId);
     }
 }

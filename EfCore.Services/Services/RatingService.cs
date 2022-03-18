@@ -28,7 +28,7 @@ namespace EfCore.Services.Services
 
         public async Task AddRatingAsync(RatingCreateDTO rating)
         {
-            var newRating = RatingHelper.ConvertRatingCreateDTOtoRating(rating);
+            var newRating = RatingHelper.ConvertRatingDTOtoRating(rating);
 
             try
             {
@@ -37,8 +37,7 @@ namespace EfCore.Services.Services
             catch (InternalException ex)
             {
                 Console.WriteLine("Error, ", ex.Message);
-            }
-            
+            }       
         }
 
         public async Task<RatingDTO> GetRatingAsync(long ratingId)
@@ -63,11 +62,23 @@ namespace EfCore.Services.Services
 
         public async Task UpdateRatingAsync(RatingUpdateDTO rating)
         {
-            var updateRating = RatingHelper.ConvertRatingCreateDTOtoRating(rating);
+            var updateRating = RatingHelper.ConvertRatingDTOtoRating(rating);
 
             try
             {
                 await _ratingRepository.UpdateRatingAsync(updateRating);
+            }
+            catch (InternalException ex)
+            {
+                Console.WriteLine("Error, ", ex.Message);
+            }
+        }
+
+        public async Task DeleteRatingsAsync(long ratingId)
+        {
+            try
+            {
+                await _ratingRepository.DeleteRatingAsync(ratingId);
             }
             catch (InternalException ex)
             {

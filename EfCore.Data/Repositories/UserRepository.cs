@@ -41,6 +41,11 @@ namespace EfCore.Data.Repositories
         {
             var user = await GetUserAsync(id);
 
+            if (user is null)
+            {
+                throw new InternalException("User is not found");
+            }
+
             _userDbSet.Remove(user);
 
             await _dbContext.SaveChangesAsync();
@@ -65,7 +70,7 @@ namespace EfCore.Data.Repositories
 
             if (user is null)
             {
-                return;
+                throw new InternalException("User is not found");
             }
 
             _userDbSet.Update(user);

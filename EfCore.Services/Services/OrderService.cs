@@ -9,38 +9,47 @@ using EfCore.Data.IRepositories;
 using EfCore.Services.IServices;
 using EfCore.Data.Models;
 using AutoMapper;
+using EfCore.Services.Helpers;
 
 namespace EfCore.Services.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly IOrderRepository _OrderRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository OrderRepository, IUserService userService)
+        public OrderService(IOrderRepository orderRepository, IUserService userService)
         {
-            _OrderRepository = OrderRepository;
+            _orderRepository = orderRepository;
             _userService = userService;
         }
 
-        public async Task AddOrderAsync(Order Order)
+        public async Task AddOrderAsync(OrderCreateDTO order)
         {
-            await _OrderRepository.AddOrderAsync(Order);
+            var newOrder = OrderHelper.ConvertOrderDTOtoRating(order);
+            try
+            {
+                await _orderRepository.AddOrderAsync(newOrder);
+            }
+            catch (InternalException ex)
+            {
+                Console.WriteLine("Error, ", ex.Message);
+            }
         }
 
         public async Task<OrderDTO> GetOrderAsync(long orderId)
         {
-            var order = await _OrderRepository.GetOrderAsync(orderId);
+            var order = await _orderRepository.GetOrderAsync(orderId);
 
             var orderModel = _mapper.Map<OrderDTO>(order);
 
             return orderModel;
         }
 
-        public async Task<List<OrderDTO>> GetOrdersAsync(long productId)
+        public async Task<List<OrderDTO>> GetOrdersAsync(long orderId)
         {
-            var orders = await _OrderRepository.GetOrdersAsync(productId);
+            var orders = await _orderRepository.GetOrdersAsync(orderId);
 
             var orderList = new List<OrderDTO>();
 
@@ -53,14 +62,18 @@ namespace EfCore.Services.Services
             return orderList;
         }
 
-        public async Task UpdateOrderAsync(Order updatedOrder)
+        public async Task UpdateOrderAsync(OrderUpdateDTO order)
         {
-            await _OrderRepository.UpdateOrderAsync(updatedOrder);
-        }
-
-        public async Task DeleteOrderAsync(long orderId)
-        {
-            await _OrderRepository.DeleteOrderAsync(orderId);
+            var updatedOrder = OrderHelper.ConvertOrderDTOtoRating(order);
+            try
+            {
+                await _orderRepository.UpdateOrderAsync(updatedOrder);
+            }
+            catch (InternalException ex)
+            {
+                Console.WriteLine("Error, ", ex.Message);
+            }
+            
         }
     }
 }

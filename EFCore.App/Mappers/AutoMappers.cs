@@ -21,7 +21,7 @@ namespace EFCore.App.Mappers
                     ));
 
             CreateMap<OrderDetails, OrderDetailsDTO>();
-            CreateMap<List<Rating>, List<RatingDTO>>();
+            CreateMap<Rating, RatingDTO>();
             CreateMap<User, UserDTO>();
             CreateMap<User, UserCredentialsResult>();
             CreateMap<Product, ProductDTO>().ForPath(dest => dest.Ratings, 

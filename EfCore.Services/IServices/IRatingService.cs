@@ -10,12 +10,14 @@ namespace EfCore.Services.IServices
 {
     public interface IRatingService
     {
-        Task AddRatingAsync(Rating rating);
+        Task AddRatingAsync(RatingCreateDTO rating);
 
-        Task UpdateRatingAsync(Rating rating);
+        Task UpdateRatingAsync(RatingUpdateDTO rating);
 
-        Task<Rating> GetRatingAsync(long ratingId);
+        Task<RatingDTO> GetRatingAsync(long ratingId);
 
-        Task<List<RatingDTO>> GetRatingsAsync(long productId);
+        Task<List<RatingDTO>> GetRatingsAsync(long ratingId);
+
+        Task DeleteRatingsAsync(long ratingId);
     }
 }

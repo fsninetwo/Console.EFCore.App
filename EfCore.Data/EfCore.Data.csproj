@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EfCore.Domain\EfCore.Domain.csproj" />
+    <ProjectReference Include="..\EfCore.Entities\EfCore.Entities.csproj" />
+    <ProjectReference Include="..\EfCore.Migrations\EfCore.Migrations.csproj" />
     <ProjectReference Include="..\Entities\EfCore.Entities.csproj" />
     <ProjectReference Include="..\MIgrations\EfCore.Migrations.csproj" />
   </ItemGroup>

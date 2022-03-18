@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EfCore.Data.IRepositories;
+using EfCore.Domain.Exceptions;
 using EfCore.Entities.Entities;
 using EfCore.Migrations;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,7 @@ namespace EfCore.Data.Repositories
 
             if (!(product is null))
             {
-                return;
+                throw new InternalException("Product is already exists");
             }
 
             _productDbSet.Add(product);
@@ -38,6 +39,11 @@ namespace EfCore.Data.Repositories
         public async Task DeleteProduct(long productId)
         {
             var product = await GetProductAsync(productId);
+
+            if (!(product is null))
+            {
+                throw new InternalException("Product is not found");
+            }
 
             _productDbSet.Remove(product);
 
@@ -64,7 +70,7 @@ namespace EfCore.Data.Repositories
 
             if (product is null)
             {
-                return;
+                throw new InternalException("Product is not found");
             }
 
             _productDbSet.Update(product);

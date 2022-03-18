@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EfCore.Data.IRepositories;
+using EfCore.Domain.Exceptions;
 using EfCore.Entities.Entities;
 using EfCore.Migrations;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,7 @@ namespace EfCore.Data.Repositories
 
             if (!(user is null))
             {
-                return;
+                throw new InternalException("User is already exists");
             }
 
             _userDbSet.Add(user);
@@ -39,6 +40,11 @@ namespace EfCore.Data.Repositories
         public async Task DeleteUser(long id)
         {
             var user = await GetUserAsync(id);
+
+            if (user is null)
+            {
+                throw new InternalException("User is not found");
+            }
 
             _userDbSet.Remove(user);
 
@@ -64,7 +70,7 @@ namespace EfCore.Data.Repositories
 
             if (user is null)
             {
-                return;
+                throw new InternalException("User is not found");
             }
 
             _userDbSet.Update(user);

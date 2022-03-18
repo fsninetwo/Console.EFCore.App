@@ -21,16 +21,16 @@ namespace EfCore.Services.Services
 
         public async Task<Product> GetProductAsync(long id)
         {
-            var Product = await _productRepository.GetProductAsync(id);
+            var product = await _productRepository.GetProductAsync(id);
 
-            return Product;
+            return product;
         }
 
         public async Task<List<Product>> GetProductsAsync(string searchText)
         {
-            var Product = await _productRepository.GetProductsAsync(searchText);
+            var product = await _productRepository.GetProductsAsync(searchText);
 
-            return Product;
+            return product;
         }
     }
 }

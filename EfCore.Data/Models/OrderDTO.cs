@@ -15,7 +15,7 @@ namespace EfCore.Data.Models
 
         public string Payment { get; set; }
 
-        public string Guid { get; set; }
+        public Guid Guid { get; set; }
 
         public bool IsCompleted { get; set; }
 

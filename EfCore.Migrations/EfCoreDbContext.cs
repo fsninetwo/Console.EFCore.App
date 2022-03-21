@@ -9,9 +9,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EfCore.Migrations
 {
-    public class EfCoreContext : DbContext
+    public class EfCoreDbContext : DbContext
     {
-        public EfCoreContext(DbContextOptions<EfCoreContext> options) : base(options)
+        public EfCoreDbContext(DbContextOptions<EfCoreDbContext> options) : base(options)
+        {
+
+        }
+
+        public EfCoreDbContext()
         {
 
         }

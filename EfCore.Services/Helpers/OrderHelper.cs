@@ -10,7 +10,7 @@ namespace EfCore.Services.Helpers
 {
     public static class OrderHelper
     {
-        public static Order ConvertOrderDTOtoRating(OrderCreateDTO order)
+        public static Order ConvertOrderDTOtoRating(OrderCreateDTO order, long userId)
         {
             var newOrderDetailsList = new List<OrderDetails>();
 
@@ -32,7 +32,8 @@ namespace EfCore.Services.Helpers
                 Guid = Guid.NewGuid(),
                 IsCompleted = false,
                 PurchaseDate = created,
-                OrderDetails = newOrderDetailsList
+                OrderDetails = newOrderDetailsList,
+                UserId = userId
             };
 
             return newOrder;

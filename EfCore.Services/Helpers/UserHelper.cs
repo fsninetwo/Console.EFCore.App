@@ -10,14 +10,16 @@ namespace EfCore.Services.Helpers
 {
     class UserHelper
     {
-        public static User ConvertUserDTOtoUser(UserCreateDTO user)
+        public static User ConvertUserDTOtoUser(UserUpdateDTO user, UserGroup userGroup = UserGroup.User)
         {
             var newUser = new User
             {
+                Id = user.Id,
                 Login = user.Login,
                 Password = user.Password,
                 Email = user.Email,
                 Created = DateTime.Now,
+                UserGroup = userGroup,
             };
 
             return newUser;

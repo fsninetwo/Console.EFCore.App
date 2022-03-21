@@ -14,24 +14,17 @@ namespace EfCore.Data.Repositories
 {
     public class RatingRepository : IRatingRepository
     {
-        private readonly EfCoreContext _dbContext;
+        private readonly EfCoreDbContext _dbContext;
         private readonly DbSet<Rating> _ratingDbSet;
 
-        public RatingRepository(EfCoreContext dbContext)
+        public RatingRepository(EfCoreDbContext dbContext)
         {
             _dbContext = dbContext;
             _ratingDbSet = dbContext.Set<Rating>();
         }
 
-        public async Task AddRatingAsync(Rating newRating)
+        public async Task AddRatingAsync(Rating rating)
         {
-            var rating = await GetRatingAsync(newRating.Id);
-
-            if (!(rating is null))
-            {
-                throw new InternalException("Rating is already exists");
-            }
-
             _ratingDbSet.Add(rating);
 
             await _dbContext.SaveChangesAsync();
@@ -41,7 +34,7 @@ namespace EfCore.Data.Repositories
         {
             var rating = await GetRatingAsync(rateId);
 
-            if (!(rating is null))
+            if (rating is null)
             {
                 throw new InternalException("Rating is not found");
             }
@@ -72,7 +65,7 @@ namespace EfCore.Data.Repositories
                                      Rate = rating.Rate,
                                      Created = rating.Created,
                                      Updated = rating.Updated,
-                                     UserName = user != null ? "Deleted" : user.Login
+                                     UserName = user == null ? "Deleted" : user.Login
                                  }).ToListAsync();
 
             return ratings;
@@ -88,9 +81,7 @@ namespace EfCore.Data.Repositories
                 throw new InternalException("Rating is not found");
             }
 
-            rating.Updated = DateTime.Now; 
-
-            _ratingDbSet.Update(rating);
+            _ratingDbSet.Update(updatedRate);
 
             await _dbContext.SaveChangesAsync();
         }

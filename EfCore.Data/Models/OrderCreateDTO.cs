@@ -9,10 +9,8 @@ namespace EfCore.Data.Models
 {
     public class OrderCreateDTO
     {
-        public long Id { get; set; }
-
         public string Payment { get; set; }
 
-        public virtual List<OrderDetailsCreateDTO> OrderDetails { get; set; }
+        public List<OrderDetailsCreateDTO> OrderDetails { get; set; }
     }
 }

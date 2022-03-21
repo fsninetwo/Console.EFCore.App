@@ -17,17 +17,23 @@ namespace EfCore.Services.Services
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IUserService _userService;
+        private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepository, IUserService userService)
+        public OrderService(IMapper mapper, IOrderRepository orderRepository, IUserService userService, IProductService productService)
         {
             _orderRepository = orderRepository;
             _userService = userService;
+            _productService = productService;
+            _mapper = mapper;
         }
 
         public async Task AddOrderAsync(OrderCreateDTO order)
         {
-            var newOrder = OrderHelper.ConvertOrderDTOtoRating(order);
+            var user = await _userService.GetUserAsync(1);
+
+            var newOrder = OrderHelper.ConvertOrderDTOtoRating(order, user.Id);
+
             try
             {
                 await _orderRepository.AddOrderAsync(newOrder);
@@ -42,7 +48,28 @@ namespace EfCore.Services.Services
         {
             var order = await _orderRepository.GetOrderAsync(orderId);
 
+            if (order is null)
+            {
+                return null;
+            }
+
+            var orderDetailsIds = order.OrderDetails.Select(x => x.Id).ToList();
+
             var orderModel = _mapper.Map<OrderDTO>(order);
+
+            var products = await _productService.GetProductsAsync(orderDetailsIds);
+
+            if (products is null)
+            {
+                throw new InternalException("No existing products for this entity");
+            }
+
+            foreach (var orderDetails in orderModel.OrderDetails)
+            {
+                var product = products.FirstOrDefault(x => x.Id == orderDetails.Id);
+
+                orderDetails.Product = product.Name;
+            }
 
             return orderModel;
         }
@@ -51,11 +78,35 @@ namespace EfCore.Services.Services
         {
             var orders = await _orderRepository.GetOrdersAsync(orderId);
 
+            if (orders is null)
+            {
+                return new List<OrderDTO>();
+            }
+
             var orderList = new List<OrderDTO>();
+
+            var orderDetailsIds = orders.SelectMany(x => x.OrderDetails.Select(xl => xl.Id)).Distinct().ToList();
+
+            var products = await _productService.GetProductsAsync(orderDetailsIds);
+
+            if (products is null)
+            {
+                throw new InternalException("No existing products for this entity");
+            }
 
             foreach(var order in orders)
             {
                 var orderModel = _mapper.Map<OrderDTO>(order);
+
+                foreach (var orderDetailsModel in orderModel.OrderDetails)
+                {
+                    var orderDetails = order.OrderDetails.FirstOrDefault(x => x.Id == orderDetailsModel.Id);
+
+                    var product = products.FirstOrDefault(x => x.Id == orderDetails.ProductId);
+
+                    orderDetailsModel.Product = product.Name;
+                }
+
                 orderList.Add(orderModel);
             }
 
@@ -71,7 +122,7 @@ namespace EfCore.Services.Services
             }
             catch (InternalException ex)
             {
-                Console.WriteLine("Error, ", ex.Message);
+                Console.WriteLine("Error, " + ex.Message);
             }
             
         }

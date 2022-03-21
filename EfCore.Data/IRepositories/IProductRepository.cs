@@ -17,6 +17,8 @@ namespace EfCore.Data.IRepositories
 
         Task<List<Product>> GetProductsAsync(string searchText, bool asNoTracking = true);
 
+        Task<List<Product>> GetProductsAsync(List<long> orderDetailIds, bool asNoTracking = true);
+
         Task DeleteProduct(long productId);
     }
 }

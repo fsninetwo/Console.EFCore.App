@@ -10,7 +10,7 @@ namespace EfCore.Services.IServices
 {
     public interface IUserService
     {
-        Task AddUserAsync(UserCreateDTO newUser);
+        Task UpdateUserAsync(UserUpdateDTO updateUser);
 
         Task<UserDTO> GetUserAsync(long id);
 

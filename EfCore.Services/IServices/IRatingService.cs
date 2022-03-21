@@ -16,8 +16,8 @@ namespace EfCore.Services.IServices
 
         Task<RatingDTO> GetRatingAsync(long ratingId);
 
-        Task<List<RatingDTO>> GetRatingsAsync(long ratingId);
+        Task<List<RatingDTO>> GetRatingsAsync(long productId);
 
-        Task DeleteRatingsAsync(long ratingId);
+        Task DeleteRatingAsync(long ratingId);
     }
 }

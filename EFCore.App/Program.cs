@@ -28,15 +28,12 @@ namespace EFCore.App
 
             var services = new ServiceCollection();
 
-            var autoMapper = new MapperConfiguration(mc => { mc.AddProfile(new AutoMappers()); });
-
-            IMapper mapper = autoMapper.CreateMapper();
-
-            services.AddSingleton(mapper);
+            
             services.AddDbContext<EfCoreDbContext>
                 (options => options.UseSqlServer(appSettings.ConnectionString));
             services.AddLogging();
-            services.AddDependencyInjectionService();
+            services.AddAutoMapperService();
+            services.AddDependencyInjectionServices();
             services.BuildServiceProvider();
 
             return services;

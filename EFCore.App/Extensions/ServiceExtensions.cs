@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using EfCore.Data.IRepositories;
 using EfCore.Data.Repositories;
 using EfCore.Migrations.Configuration;
 using EfCore.Services.IServices;
 using EfCore.Services.Services;
+using EFCore.App.Mappers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EFCore.App.Extensions
 {
     static class ServiceExtensions
     {
-        public static void AddDependencyInjectionService(this IServiceCollection services)
+        public static void AddDependencyInjectionServices(this IServiceCollection services)
         {
             services.AddSingleton<IAppSettings, AppSettings>();
 
@@ -27,6 +29,18 @@ namespace EFCore.App.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductService, ProductService>();
+        }
+
+        public static void AddAutoMapperService(this IServiceCollection services)
+        {
+            var autoMapper = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMappers()); 
+            });
+
+            var mapper = autoMapper.CreateMapper();
+
+            services.AddSingleton(mapper);
         }
     }
 }

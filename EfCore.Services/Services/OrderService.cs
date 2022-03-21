@@ -48,6 +48,11 @@ namespace EfCore.Services.Services
         {
             var order = await _orderRepository.GetOrderAsync(orderId);
 
+            if (order is null)
+            {
+                return null;
+            }
+
             var orderDetailsIds = order.OrderDetails.Select(x => x.Id).ToList();
 
             var orderModel = _mapper.Map<OrderDTO>(order);
@@ -72,6 +77,11 @@ namespace EfCore.Services.Services
         public async Task<List<OrderDTO>> GetOrdersAsync(long orderId)
         {
             var orders = await _orderRepository.GetOrdersAsync(orderId);
+
+            if (orders is null)
+            {
+                return new List<OrderDTO>();
+            }
 
             var orderList = new List<OrderDTO>();
 

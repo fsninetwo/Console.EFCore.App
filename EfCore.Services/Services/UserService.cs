@@ -28,14 +28,6 @@ namespace EfCore.Services.Services
             _logger = logger;
         }
 
-        public async Task AddUserAsync(UserCreateDTO newUser)
-        {
-            var mapUser = UserHelper.ConvertUserDTOtoUser(newUser);
-
-            await _userRepository.AddUser(mapUser);
-            _logger.LogDebug("New user is added");
-        }
-
         public async Task<UserDTO> GetUserAsync(long id)
         {
             var user = await _userRepository.GetUserAsync(id);
@@ -55,6 +47,24 @@ namespace EfCore.Services.Services
             _logger.LogDebug("User {0} credentials is selected", userModel.Login);
 
             return userModel;
+        }
+
+        public async Task UpdateUserAsync(UserUpdateDTO updateUser)
+        {
+            try
+            {
+                var mapUser = UserHelper.ConvertUserDTOtoUser(updateUser);
+
+                await _userRepository.UpdateUser(mapUser);
+
+                _logger.LogDebug("New user is added");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error," + ex.Message);
+
+                Console.WriteLine("Error, " + ex.Message);
+            }
         }
     }
 }

@@ -4,14 +4,16 @@ using EfCore.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Migrations.Migrations
 {
     [DbContext(typeof(EfCoreDbContext))]
-    partial class EfCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20220321082536_DataInitialize")]
+    partial class DataInitialize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

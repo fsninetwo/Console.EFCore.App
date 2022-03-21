@@ -19,9 +19,9 @@ namespace EfCore.Services.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
+        private readonly ILogger<UserService> _logger;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, ILogger logger)
+        public UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger)
         {
             _userRepository = userRepository;
             _mapper = mapper;

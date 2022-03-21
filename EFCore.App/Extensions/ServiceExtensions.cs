@@ -23,12 +23,12 @@ namespace EFCore.App.Extensions
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
 
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IRatingService, RatingService>();
         }
 
         public static void AddAutoMapperService(this IServiceCollection services)

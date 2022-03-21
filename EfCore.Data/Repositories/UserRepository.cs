@@ -66,7 +66,6 @@ namespace EfCore.Data.Repositories
                 throw new InternalException("User is not found");
             }
 
-            _userDbSet.Remove(updatedUser);
             _userDbSet.Update(updatedUser);
 
             await _dbContext.SaveChangesAsync();

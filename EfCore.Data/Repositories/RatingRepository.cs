@@ -81,7 +81,6 @@ namespace EfCore.Data.Repositories
                 throw new InternalException("Rating is not found");
             }
 
-            _ratingDbSet.Remove(updatedRate);
             _ratingDbSet.Update(updatedRate);
 
             await _dbContext.SaveChangesAsync();

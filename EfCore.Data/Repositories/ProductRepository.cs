@@ -73,7 +73,6 @@ namespace EfCore.Data.Repositories
                 throw new InternalException("Product is not found");
             }
 
-            _productDbSet.Remove(updatedProduct);
             _productDbSet.Update(updatedProduct);
 
             await _dbContext.SaveChangesAsync();

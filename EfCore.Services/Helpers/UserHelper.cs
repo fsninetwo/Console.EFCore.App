@@ -14,6 +14,7 @@ namespace EfCore.Services.Helpers
         {
             var newUser = new User
             {
+                Id = user.Id,
                 Login = user.Login,
                 Password = user.Password,
                 Email = user.Email,

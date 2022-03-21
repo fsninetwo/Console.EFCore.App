@@ -73,7 +73,8 @@ namespace EfCore.Data.Repositories
                 throw new InternalException("Product is not found");
             }
 
-            _productDbSet.Update(product);
+            _productDbSet.Remove(updatedProduct);
+            _productDbSet.Update(updatedProduct);
 
             await _dbContext.SaveChangesAsync();
         }
@@ -90,7 +91,7 @@ namespace EfCore.Data.Repositories
         private IQueryable<Product> GetProducts(string searchText, bool asNoTracking = false)
         {
             var products = _productDbSet
-                .Where(x => x.Name.Contains(searchText))
+                .Where(x => x.Name.ToLower().Contains(searchText))
                 .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);   
 
             return products;

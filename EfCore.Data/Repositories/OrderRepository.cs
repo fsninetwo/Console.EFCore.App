@@ -66,6 +66,7 @@ namespace EfCore.Data.Repositories
                 throw new InternalException("Order is not found");
             }
 
+            _orderDbSet.Remove(updatedOrder);
             _orderDbSet.Update(updatedOrder);
 
             await _dbContext.SaveChangesAsync();

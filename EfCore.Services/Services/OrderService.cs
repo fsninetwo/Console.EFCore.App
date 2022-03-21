@@ -98,11 +98,13 @@ namespace EfCore.Services.Services
             {
                 var orderModel = _mapper.Map<OrderDTO>(order);
 
-                foreach (var orderDetails in orderModel.OrderDetails)
+                foreach (var orderDetailsModel in orderModel.OrderDetails)
                 {
-                    var product = products.FirstOrDefault(x => x.Id == orderDetails.Id);
+                    var orderDetails = order.OrderDetails.FirstOrDefault(x => x.Id == orderDetailsModel.Id);
 
-                    orderDetails.Product = product.Name;
+                    var product = products.FirstOrDefault(x => x.Id == orderDetails.ProductId);
+
+                    orderDetailsModel.Product = product.Name;
                 }
 
                 orderList.Add(orderModel);
@@ -120,7 +122,7 @@ namespace EfCore.Services.Services
             }
             catch (InternalException ex)
             {
-                Console.WriteLine("Error, ", ex.Message);
+                Console.WriteLine("Error, " + ex.Message);
             }
             
         }

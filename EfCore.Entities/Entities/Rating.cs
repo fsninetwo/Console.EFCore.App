@@ -19,7 +19,7 @@ namespace EfCore.Entities.Entities
 
         public DateTime Updated { get; set; }
 
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
 
         public long ProductId { get; set; }
     }

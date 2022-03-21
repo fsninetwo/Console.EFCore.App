@@ -46,11 +46,23 @@ namespace EfCore.Services.Services
         {
             var rating = await _ratingRepository.GetRatingAsync(ratingId);
 
+            if (rating == null)
+            {
+                return null;
+            }
+
             var ratingModel = _mapper.Map<RatingDTO>(rating);
 
-            var user = await _userService.GetUserAsync(rating.UserId);
+            if (rating.UserId.HasValue)
+            {
+                var user = await _userService.GetUserAsync(rating.UserId.Value);
 
-            ratingModel.UserName = user.Login;
+                ratingModel.UserName = user.Login; 
+            }
+            else
+            {
+                ratingModel.UserName = "Deleted";
+            }
 
             return ratingModel;
         }
@@ -72,11 +84,11 @@ namespace EfCore.Services.Services
             }
             catch (InternalException ex)
             {
-                Console.WriteLine("Error, ", ex.Message);
+                Console.WriteLine("Error, " + ex.Message);
             }
         }
 
-        public async Task DeleteRatingsAsync(long ratingId)
+        public async Task DeleteRatingAsync(long ratingId)
         {
             try
             {
@@ -84,7 +96,7 @@ namespace EfCore.Services.Services
             }
             catch (InternalException ex)
             {
-                Console.WriteLine("Error, ", ex.Message);
+                Console.WriteLine("Error, " + ex.Message);
             }
         }
     }

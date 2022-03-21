@@ -14,9 +14,9 @@ using EfCore.Migrations.Configuration;
 
 namespace Migrations
 {
-    class EfCoreContextFactory : IDesignTimeDbContextFactory<EfCoreContext>
+    class EfCoreDbContextFactory : IDesignTimeDbContextFactory<EfCoreDbContext>
     {
-        public EfCoreContext CreateDbContext(string[] args)
+        public EfCoreDbContext CreateDbContext(string[] args)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -27,13 +27,13 @@ namespace Migrations
             var settings = new AppSettings();
             configuration.Bind(settings);
 
-            var optionsBuilder = new DbContextOptionsBuilder<EfCoreContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<EfCoreDbContext>();
             optionsBuilder.UseSqlServer(settings.ConnectionString,
-                b => b.MigrationsAssembly(typeof(EfCoreContext).Assembly.FullName)
+                b => b.MigrationsAssembly(typeof(EfCoreDbContext).Assembly.FullName)
             );
 
             Console.WriteLine("Migration is started");
-            return new EfCoreContext(optionsBuilder.Options);
+            return new EfCoreDbContext(optionsBuilder.Options);
         }
     }
 }

@@ -13,24 +13,17 @@ namespace EfCore.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly EfCoreContext _dbContext;
+        private readonly EfCoreDbContext _dbContext;
         private readonly DbSet<User> _userDbSet;
 
-        public UserRepository(EfCoreContext dbContext)
+        public UserRepository(EfCoreDbContext dbContext)
         {
             _dbContext = dbContext;
             _userDbSet = dbContext.Set<User>();
         }
 
-        public async Task AddUser(User newUser)
+        public async Task AddUser(User user)
         {
-            var user = await GetUserAsync(newUser.Id);
-
-            if (!(user is null))
-            {
-                throw new InternalException("User is already exists");
-            }
-
             _userDbSet.Add(user);
 
             await _dbContext.SaveChangesAsync();
@@ -73,7 +66,7 @@ namespace EfCore.Data.Repositories
                 throw new InternalException("User is not found");
             }
 
-            _userDbSet.Update(user);
+            _userDbSet.Update(updatedUser);
 
             await _dbContext.SaveChangesAsync();
         }

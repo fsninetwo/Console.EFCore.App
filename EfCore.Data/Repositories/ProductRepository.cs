@@ -13,24 +13,17 @@ namespace EfCore.Data.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly EfCoreContext _dbContext;
+        private readonly EfCoreDbContext _dbContext;
         private readonly DbSet<Product> _productDbSet;
 
-        public ProductRepository(EfCoreContext dbContext)
+        public ProductRepository(EfCoreDbContext dbContext)
         {
             _dbContext = dbContext;
             _productDbSet = dbContext.Set<Product>();
         }
 
-        public async Task AddProduct(Product newProduct)
+        public async Task AddProduct(Product product)
         {
-            var product = await GetProductAsync(newProduct.Id);
-
-            if (!(product is null))
-            {
-                throw new InternalException("Product is already exists");
-            }
-
             _productDbSet.Add(product);
 
             await _dbContext.SaveChangesAsync();
@@ -47,7 +40,7 @@ namespace EfCore.Data.Repositories
         {
             var product = await GetProductAsync(productId);
 
-            if (!(product is null))
+            if (product is null)
             {
                 throw new InternalException("Product is not found");
             }

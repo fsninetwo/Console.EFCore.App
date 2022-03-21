@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Migrations.Migrations
 {
-    [DbContext(typeof(EfCoreContext))]
+    [DbContext(typeof(EfCoreDbContext))]
     [Migration("20220315131559_InitialTables")]
     partial class InitialTables
     {

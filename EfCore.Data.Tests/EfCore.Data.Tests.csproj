@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExpectedObjects" Version="3.5.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="MockQueryable.Moq" Version="5.0.1" />
     <PackageReference Include="Moq" Version="4.17.2" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -23,9 +23,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EFCore.App\EFCore.App.csproj" />
-    <ProjectReference Include="..\EfCore.Domain\EfCore.Domain.csproj" />
+    <ProjectReference Include="..\EfCore.Data\EfCore.Data.csproj" />
     <ProjectReference Include="..\EfCore.Entities\EfCore.Entities.csproj" />
+    <ProjectReference Include="..\EfCore.Migrations\EfCore.Migrations.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MockQueryable.Moq">
+      <HintPath>..\..\..\..\.nuget\packages\mockqueryable.moq\5.0.1\lib\netstandard2.1\MockQueryable.Moq.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

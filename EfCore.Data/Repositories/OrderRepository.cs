@@ -13,24 +13,17 @@ namespace EfCore.Data.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly EfCoreContext _dbContext;
+        private readonly EfCoreDbContext _dbContext;
         private readonly DbSet<Order> _orderDbSet;
 
-        public OrderRepository(EfCoreContext dbContext)
+        public OrderRepository(EfCoreDbContext dbContext)
         {
             _dbContext = dbContext;
             _orderDbSet = dbContext.Set<Order>();
         }
 
-        public async Task AddOrderAsync(Order newOrder)
+        public async Task AddOrderAsync(Order order)
         {
-            var order = await GetOrderAsync(newOrder.Id);
-
-            if (!(order is null))
-            {
-                throw new InternalException("Order is already exists");
-            }
-
             _orderDbSet.Add(order);
 
             await _dbContext.SaveChangesAsync();
@@ -40,7 +33,7 @@ namespace EfCore.Data.Repositories
         {
             var order = await GetOrderAsync(orderId);
 
-            if (!(order is null))
+            if (order is null)
             {
                 throw new InternalException("Order is not found");
             }
@@ -73,7 +66,7 @@ namespace EfCore.Data.Repositories
                 throw new InternalException("Order is not found");
             }
 
-            _orderDbSet.Update(order);
+            _orderDbSet.Update(updatedOrder);
 
             await _dbContext.SaveChangesAsync();
         }

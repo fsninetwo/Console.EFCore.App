@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Migrations.Migrations
 {
-    [DbContext(typeof(EfCoreContext))]
+    [DbContext(typeof(EfCoreDbContext))]
     partial class EfCoreContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

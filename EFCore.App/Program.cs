@@ -33,7 +33,7 @@ namespace EFCore.App
             IMapper mapper = autoMapper.CreateMapper();
 
             services.AddSingleton(mapper);
-            services.AddDbContext<EfCoreContext>
+            services.AddDbContext<EfCoreDbContext>
                 (options => options.UseSqlServer(appSettings.ConnectionString));
             services.AddLogging();
             services.AddDependencyInjectionService();

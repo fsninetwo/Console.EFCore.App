@@ -9,6 +9,7 @@ using EFCore.App.Mappers;
 using EfCore.Data.IRepositories;
 using EfCore.Data.Models;
 using EfCore.Domain.Exceptions;
+using EfCore.Domain.Helpers;
 using EfCore.Services.Services;
 using EfCore.Entities.Entities;
 
@@ -35,13 +36,11 @@ namespace EfCore.Services.Tests
 
         #region TestData
 
-        private readonly long validUserId = 1;
+        private readonly List<long> _validOrderDetailIds = new List<long>() {1, 2, 3, 4};
 
-        private readonly List<long> validOrderDetailIds = new List<long>() {1, 2, 3, 4};
-
-        private readonly User validUser = new User() { Id = 1, Login = "Test" };
+        private readonly User _validUser = new User() { Id = 1, Login = "Test" };
         
-        private readonly List<Order> validOrders = new List<Order>()
+        private readonly List<Order> _validOrders = new List<Order>()
         {
             new Order()
             {
@@ -66,7 +65,7 @@ namespace EfCore.Services.Tests
             }
         };
 
-        private readonly List<OrderDTO> validOrdersDTO = new List<OrderDTO>()
+        private readonly List<OrderDTO> _validOrdersDTO = new List<OrderDTO>()
         {
             new OrderDTO()
             {
@@ -91,7 +90,7 @@ namespace EfCore.Services.Tests
             }
         };
 
-        private readonly List<ProductDTO> validProducts = new List<ProductDTO>()
+        private readonly List<ProductDTO> _validProducts = new List<ProductDTO>()
         {
             new ProductDTO()
             {
@@ -120,15 +119,13 @@ namespace EfCore.Services.Tests
             }
         };
 
-
-
         #endregion
 
         [Fact]
         public async Task GetOrdersAsync_NoProjects_ShouldThrowException()
         {
             _mockOrderRepository.Setup(x => x.GetOrdersAsync(1, It.IsAny<bool>()))
-                .ReturnsAsync(() => validOrders);
+                .ReturnsAsync(() => _validOrders);
 
             _mockProductService.Setup(x => x.GetProductsAsync(It.IsAny<List<long>>()))
                 .ReturnsAsync(() => null);
@@ -143,24 +140,14 @@ namespace EfCore.Services.Tests
             var userId = 1;
 
             _mockOrderRepository.Setup(x => x.GetOrdersAsync(userId, It.IsAny<bool>()))
-                .ReturnsAsync(() => validOrders);
+                .ReturnsAsync(() => _validOrders);
 
-            _mockProductService.Setup(x => x.GetProductsAsync(validOrderDetailIds))
-                .ReturnsAsync(() => validProducts);
+            _mockProductService.Setup(x => x.GetProductsAsync(_validOrderDetailIds))
+                .ReturnsAsync(() => _validProducts);
 
             var result = await _orderService.GetOrdersAsync(userId);
 
-            for (int i = 0; i < 2; i++)
-            {
-                Assert.Equal(result[i].Id, validOrdersDTO[i].Id);
-                Assert.Equal(result[i].UserId, validOrdersDTO[i].UserId);
-                Assert.Equal(result[i].OrderDetails.Count, validOrdersDTO[i].OrderDetails.Count);
-                for (int j = 0; j < result[i].OrderDetails.Count; j++)
-                {
-                    Assert.Equal(result[i].OrderDetails[j].Id, validOrdersDTO[i].OrderDetails[j].Id);
-                    Assert.Equal(result[i].OrderDetails[j].Product, validOrdersDTO[i].OrderDetails[j].Product);
-                }
-            }
+            Assert.True(result.JsonCompare(_validOrdersDTO));
         }
     }
 }
